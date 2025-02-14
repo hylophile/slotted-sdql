@@ -79,16 +79,16 @@ fn unique_app2() -> SdqlRewrite {
 fn let_binop3() -> SdqlRewrite {
     Rewrite::new(
         "let-binop3",
-        "(let $x ?e1 (binop ?f ?e2 ?e3))",
-        "(binop ?f (let $x ?e1 ?e2) (let $x ?e1 ?e3))",
+        "(let ?e1 $x (binop ?f ?e2 ?e3))",
+        "(binop ?f (let ?e1 $x ?e2) (let ?e1 $x ?e3))",
     )
 }
 // rw!("let-binop4"; "(binop ?f (let ?e1 ?e2) (let ?e1 ?e3))" => "(let ?e1 (binop ?f ?e2 ?e3))"),
 fn let_binop4() -> SdqlRewrite {
     Rewrite::new(
         "let-binop4",
-        "(binop ?f (let $x ?e1 ?e2) (let $x ?e1 ?e3))",
-        "(let $x ?e1 (binop ?f ?e2 ?e3))",
+        "(binop ?f (let ?e1 $x ?e2) (let ?e1 $x ?e3))",
+        "(let ?e1 $x (binop ?f ?e2 ?e3))",
     )
 }
 
@@ -96,16 +96,16 @@ fn let_binop4() -> SdqlRewrite {
 fn let_apply1() -> SdqlRewrite {
     Rewrite::new(
         "let-apply1",
-        "(let $x ?e1 (apply ?e2 ?e3))",
-        "(apply ?e2 (let $x ?e1 ?e3))",
+        "(let ?e1 $x (apply ?e2 ?e3))",
+        "(apply ?e2 (let ?e1 $x ?e3))",
     )
 }
 // rw!("let-apply2"; "(apply ?e2 (let ?e1 ?e3))" => "(let ?e1 (apply ?e2 ?e3))"),
 fn let_apply2() -> SdqlRewrite {
     Rewrite::new(
         "let-apply2",
-        "(apply ?e2 (let $x ?e1 ?e3))",
-        "(let $x ?e1 (apply ?e2 ?e3))",
+        "(apply ?e2 (let ?e1 $x ?e3))",
+        "(let ?e1 $x (apply ?e2 ?e3))",
     )
 }
 
@@ -131,7 +131,7 @@ fn mult_to_if() -> SdqlRewrite {
 }
 
 fn beta() -> SdqlRewrite {
-    Rewrite::new("beta", "(let $x ?t ?body)", "?body[(var $x) := ?t]")
+    Rewrite::new("beta", "(let ?t $x ?body)", "?body[(var $x) := ?t]")
 }
 
 // rw!("sum-fact-1";  "(sum ?R (* ?e1 ?e2))"        =>
@@ -240,7 +240,7 @@ fn sum_fact_inv_3() -> SdqlRewrite {
 //     ))}),
 fn sum_sum_vert_fuse_1() -> SdqlRewrite {
     let pat = "(sum (sum ?R $k2 $v2 (sing (var $k2) ?body1)) $k1 $v1 ?body2)";
-    let outpat = "(sum ?R $k2 $v2 (let $k1 (var $k2) (let $v1 ?body1 ?body2)))";
+    let outpat = "(sum ?R $k2 $v2 (let (var $k2) $k1 (let ?body1 $v1 ?body2)))";
 
     Rewrite::new("sum-sum-vert-fuse-1", pat, outpat)
 }
@@ -252,7 +252,7 @@ fn sum_sum_vert_fuse_1() -> SdqlRewrite {
 //     ))}),
 fn sum_sum_vert_fuse_2() -> SdqlRewrite {
     let pat = "(sum (sum ?R $k2 $v2 (sing (unique ?key) ?body1)) $k1 $v1 ?body2)";
-    let outpat = "(sum ?R $k2 $v2 (let $k1 (unique ?key) (let $v1 ?body1 ?body2)))";
+    let outpat = "(sum ?R $k2 $v2 (let (unique ?key) $k1 (let ?body1 $v1 ?body2)))";
 
     Rewrite::new("sum-sum-vert-fuse-2", pat, outpat)
 }
@@ -305,7 +305,7 @@ fn sum_merge() -> SdqlRewrite {
     Rewrite::new(
         "sum-merge",
         "(sum ?R $k1 $v1 (sum ?S $k2 $v2 (ifthen (eq (var $v1) (var $v2)) ?body)))",
-        "(merge ?R ?S $k1 $k2 $v1 (let $v2 (var $v1) ?body))",
+        "(merge ?R ?S $k1 $k2 $v1 (let (var $v1) $v2 ?body))",
     )
 }
 
@@ -330,7 +330,7 @@ fn sum_to_get() -> SdqlRewrite {
     Rewrite::new_if(
         "sum-to-get",
         "(sum ?dict $k $v (ifthen (eq (var $k) ?key) ?body))",
-        "(let $k ?key (let $v (get ?dict (var $k)) ?body))",
+        "(let ?key $k (let (get ?dict (var $k)) $v ?body))",
         |subst, _| {
             !subst["key"].slots().contains(&Slot::named("k"))
                 && !subst["key"].slots().contains(&Slot::named("v"))
