@@ -41,23 +41,24 @@ impl<'a> CostFunction<Sdql> for SdqlCost<'a> {
         }
         match enode {
             Sdql::Sum(range, body) => {
-                costs(range.elem.id)
-                    + (if (self.egraph.analysis_data(range.elem.id).mightBeVector) {
+                costs(range.id)
+                    + (if (self.egraph.analysis_data(range.id).mightBeVector) {
                         sum_vector_coef
                     } else {
                         sum_dict_coef
-                    }) * (1 + costs(body.elem.id))
+                    }) * (1 + costs(body.elem.elem.id))
             }
+
             Sdql::Merge(range1, range2, body) => {
-                costs(range1.elem.id)
-                    + costs(range2.elem.id)
-                    + (if (self.egraph.analysis_data(range1.elem.id).mightBeVector
-                        && self.egraph.analysis_data(range2.elem.id).mightBeVector)
+                costs(range1.id)
+                    + costs(range2.id)
+                    + (if (self.egraph.analysis_data(range1.id).mightBeVector
+                        && self.egraph.analysis_data(range2.id).mightBeVector)
                     {
                         sum_vector_coef
                     } else {
                         sum_dict_coef
-                    }) * (1 + costs(body.elem.id))
+                    }) * (1 + costs(body.elem.elem.elem.id))
             }
             Sdql::Mult(e1, e2)
                 if self.egraph.analysis_data(e1.id).mightBeBool
