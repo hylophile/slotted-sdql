@@ -17,17 +17,17 @@ define_language! {
         SubArray(AppliedId, AppliedId, AppliedId) = "subarray",
         Unique(AppliedId) = "unique",
         Sum(
-            /* range: */ AppliedId,
-            /*  body: */ Bind<Bind<AppliedId>>,
+            /*  range: */ AppliedId,
+            /*   body: */ Bind<Bind<AppliedId>>,
         ) = "sum",
         Merge(
-            /*range1: */ AppliedId,
-            /*range2: */ AppliedId,
-            /*  body: */ Bind<Bind<Bind<AppliedId>>>,
+            /* range1: */ AppliedId,
+            /* range2: */ AppliedId,
+            /*   body: */ Bind<Bind<Bind<AppliedId>>>,
         ) = "merge",
         Let(
-            /*  body: */ Bind<AppliedId>, // todo swap?
-            /*     v: */ AppliedId
+            /*      v: */ AppliedId,
+            /*   body: */ Bind<AppliedId>,
          ) = "let",
         Num(u32),
         Symbol(Symbol),
