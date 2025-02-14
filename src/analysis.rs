@@ -32,7 +32,7 @@ impl Analysis<Sdql> for SdqlKind {
             // Sdql::Sum(_, _, _, body) => {
             //     out = eg.analysis_data(body.id).clone();
             // }
-            _ => {},
+            _ => {}
         }
         out
     }
