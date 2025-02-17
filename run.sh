@@ -1,1 +1,0 @@
-RUSTFLAGS=-Awarnings cargo run --release -- $1
