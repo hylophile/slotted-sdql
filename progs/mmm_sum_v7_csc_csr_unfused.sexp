@@ -9,10 +9,10 @@
                   $_i_p_key
                   $_i_p_val
                   (let (get
-                        [var $A]
-                        [+
+                        (var $A)
+                        (+
                          (var $_i_p_key)
-                         1])
+                         1))
                     $q
                     (sing (var $_i_p_key)
                           (sum (subarray (var $A1) (var $_i_p_val) (- (var $q) 1))
@@ -29,10 +29,10 @@
                                     $_i_p_key
                                     $_i_p_val
                                     (let (get
-                                          [var $B]
-                                          [+
+                                          (var $B)
+                                          (+
                                            (var $_i_p_key)
-                                           1])
+                                           1))
                                       $q
                                       (sing (var $_i_p_key)
                                             (sum (subarray (var $B1) (var $_i_p_val) (- (var $q) 1))

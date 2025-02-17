@@ -10,10 +10,10 @@
                      $var_07
                      $var_08
                      (let (get
-                           [var $var_02]
-                           [+
+                           (var $var_02)
+                           (+
                             (var $var_07)
-                            1])
+                            1))
                        $var_09
                        (sing (var $var_07)
                              (sum (subarray (var $var_03) (var $var_08) (- (var $var_09) 1))

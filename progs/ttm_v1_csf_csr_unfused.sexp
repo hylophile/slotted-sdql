@@ -12,14 +12,14 @@
                         $var_10
                         $var_11
                         (let (get
-                              [var $var_05]
-                              [var $var_10])
+                              (var $var_05)
+                              (var $var_10))
                           $var_12
                           (let (get
-                                [var $var_05]
-                                [+
+                                (var $var_05)
+                                (+
                                  (var $var_10)
-                                 1])
+                                 1))
                             $var_13
                             (sing
                              (unique (var $var_11))
@@ -27,14 +27,14 @@
                                   $var_14
                                   $var_15
                                   (let (get
-                                        [var $var_07]
-                                        [var $var_14])
+                                        (var $var_07)
+                                        (var $var_14))
                                     $var_16
                                     (let (get
-                                          [var $var_07]
-                                          [+
+                                          (var $var_07)
+                                          (+
                                            (var $var_14)
-                                           1])
+                                           1))
                                       $var_17
                                       (sing
                                        (unique (var $var_15))
@@ -42,8 +42,8 @@
                                             $var_18
                                             $var_19
                                             (let (get
-                                                  [var $var_09]
-                                                  [var $var_18])
+                                                  (var $var_09)
+                                                  (var $var_18))
                                               $var_20
                                               (sing (unique (var $var_19)) (var $var_20))))))))))))
                    $var_10
@@ -58,10 +58,10 @@
                                          $var_14
                                          $var_15
                                          (let (get
-                                               [var $var_01]
-                                               [+
+                                               (var $var_01)
+                                               (+
                                                 (var $var_14)
-                                                1])
+                                                1))
                                            $var_16
                                            (sing (var $var_14)
                                                  (sum (subarray (var $var_02)
