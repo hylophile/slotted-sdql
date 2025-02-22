@@ -20,11 +20,11 @@ fn get_cost(re: RecExpr<Sdql>) -> usize {
     let id = eg.add_syn_expr(re);
     let cost_func = SdqlCost { egraph: &eg };
     let extractor = Extractor::<_, SdqlCost>::new(&eg, cost_func);
-    return extractor.get_best_cost(&id.clone(), &eg);
+    extractor.get_best_cost(&id.clone(), &eg)
 }
 
 fn thousand_seperator(num: usize) -> String {
-    return num
+    num
         .to_string()
         .as_bytes()
         .rchunks(3)
@@ -32,7 +32,7 @@ fn thousand_seperator(num: usize) -> String {
         .map(std::str::from_utf8)
         .collect::<Result<Vec<&str>, _>>()
         .unwrap()
-        .join(",");
+        .join(",")
 }
 
 fn main() {

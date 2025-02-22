@@ -9,7 +9,7 @@ pub struct SdqlCost<'a> {
     pub egraph: &'a SdqlEgraph,
 }
 
-impl<'a> CostFunction<Sdql> for SdqlCost<'a> {
+impl CostFunction<Sdql> for SdqlCost<'_> {
     type Cost = usize;
 
     fn cost<C>(&self, enode: &Sdql, costs: C) -> usize
