@@ -23,3 +23,8 @@ _bench progs:
         printf '\n' >> "$results"
     done
     true
+    xsv table "$results"
+    just sum "$results"
+
+sum file:
+    xsv stats {{file}} | xsv select sum

@@ -2,3 +2,5 @@ target
 results-*.csv
 flamegraph.svg
 perf.data*
+.envrc
+profile.json.*

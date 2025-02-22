@@ -64,6 +64,7 @@ fn main() {
     let extractor = Extractor::<_, SdqlCost>::new(&eg, cost_func);
     let term = extractor.extract(&id1.clone(), &eg);
     let memory = memory_stats().expect("could not get current memory usage");
+    // eg.dump_mermaid();
     println!("---- {} ----", filename);
     println!("  Stop reason: {:?}", report.stop_reason);
     println!("  Iterations: {}", report.iterations);
