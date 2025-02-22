@@ -42,7 +42,7 @@ impl CostFunction<Sdql> for SdqlCost<'_> {
         match enode {
             Sdql::Sum(range, body) => {
                 costs(range.id)
-                    + (if (self.egraph.analysis_data(range.id).mightBeVector) {
+                    + (if (self.egraph.analysis_data(range.id).might_be_vector) {
                         sum_vector_coef
                     } else {
                         sum_dict_coef
@@ -52,8 +52,8 @@ impl CostFunction<Sdql> for SdqlCost<'_> {
             Sdql::Merge(range1, range2, body) => {
                 costs(range1.id)
                     + costs(range2.id)
-                    + (if (self.egraph.analysis_data(range1.id).mightBeVector
-                        && self.egraph.analysis_data(range2.id).mightBeVector)
+                    + (if (self.egraph.analysis_data(range1.id).might_be_vector
+                        && self.egraph.analysis_data(range2.id).might_be_vector)
                     {
                         sum_vector_coef
                     } else {
@@ -61,14 +61,14 @@ impl CostFunction<Sdql> for SdqlCost<'_> {
                     }) * (1 + costs(body.elem.elem.elem.id))
             }
             Sdql::Mult(e1, e2)
-                if self.egraph.analysis_data(e1.id).mightBeBool
-                    || self.egraph.analysis_data(e2.id).mightBeBool =>
+                if self.egraph.analysis_data(e1.id).might_be_bool
+                    || self.egraph.analysis_data(e2.id).might_be_bool =>
             {
                 infinity
             }
             Sdql::Mult(e1, e2)
-                if self.egraph.analysis_data(e1.id).mightBeDict
-                    || self.egraph.analysis_data(e2.id).mightBeDict =>
+                if self.egraph.analysis_data(e1.id).might_be_dict
+                    || self.egraph.analysis_data(e2.id).might_be_dict =>
             {
                 let mut s = sum_dict_coef;
                 for x in enode.applied_id_occurrences() {
