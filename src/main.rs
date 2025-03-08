@@ -20,12 +20,11 @@ fn get_cost(re: RecExpr<Sdql>) -> usize {
     let id = eg.add_syn_expr(re);
     let cost_func = SdqlCost { egraph: &eg };
     let extractor = Extractor::<_, SdqlCost>::new(&eg, cost_func);
-    extractor.get_best_cost(&id.clone(), &eg)
+    extractor.get_best_cost::<SdqlKind>(&id.clone())
 }
 
 fn thousand_seperator(num: usize) -> String {
-    num
-        .to_string()
+    num.to_string()
         .as_bytes()
         .rchunks(3)
         .rev()
